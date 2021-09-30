@@ -6,7 +6,7 @@ class CWAService:
     @staticmethod
     def predictScore(predict):
         current_dir = path.join(getcwd())
-        filename = "app\prediction\cwa_prediction\score_prediction\score_prediction_1.h5"
+        filename = "app\prediction\cwa_prediction\score_prediction\score_prediction.h5"
         file = path.join(current_dir, filename)
 
         model = load_model(file)
