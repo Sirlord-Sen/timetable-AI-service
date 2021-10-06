@@ -1,4 +1,3 @@
-import json
 from  flask import request, jsonify
 from flask_restx import Namespace, Resource
 
@@ -6,11 +5,11 @@ from flask_restx import Namespace, Resource
 api = Namespace('cwa_prediction', description="cwa predictions")
 
 from ..services import CWAService
-from ..dto import ScoreDto, TimeDto
-from ..handlers import CWAHandlers
+from ..dto import CWAScoreDto, CWATimeDto
+from ..handlers import Handlers
 
-score = ScoreDto.scoreDets
-time = TimeDto.timeDets
+score = CWAScoreDto.scoreDets
+time = CWATimeDto.timeDets
 
 @api.route('cwa/score')
 class PredictScore(Resource):
@@ -18,9 +17,9 @@ class PredictScore(Resource):
     @api.expect(score, validate=True)
     def post(self):
         data = request.json
-        scaled_data = CWAHandlers.scalePredict(data)
+        scaled_data = Handlers.scalePredict(data)
         predict = CWAService.predictScore(scaled_data)
-        response = CWAHandlers.buildResponse(predict)
+        response = Handlers.buildResponse(predict)
         return jsonify(response)
 
 
@@ -30,7 +29,7 @@ class PredictScore(Resource):
     @api.expect(time, validate=True)
     def post(self):
         data = request.json
-        scaled_data = CWAHandlers.scalePredict(data)
+        scaled_data = Handlers.scalePredict(data)
         predict = CWAService.predictTime(scaled_data)
-        response = CWAHandlers.buildResponse(predict)
+        response = Handlers.buildResponse(predict)
         return jsonify(response)

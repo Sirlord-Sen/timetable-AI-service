@@ -1,7 +1,7 @@
 from flask_restx.fields import Float
 from ..controllers.cwa_controllers import api
 
-class ScoreDto:
+class CWAScoreDto:
     scoreDets = api.model('cwa_prediction', {
         'cwa': Float(required=True),
         "credit": Float(required=True),
@@ -9,7 +9,7 @@ class ScoreDto:
         "time": Float(required=True)
     })
 
-class TimeDto:
+class CWATimeDto:
     timeDets = api.model('cwa_prediction', {
         'cwa': Float(required=True),
         "credit": Float(required=True),

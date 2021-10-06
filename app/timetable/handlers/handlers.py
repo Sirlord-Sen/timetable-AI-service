@@ -1,9 +1,8 @@
-from app.timetable.services.cwa_services import CWAService
-from ..dto import ScoreDto
 
-class CWAHandlers:
+class Handlers:
     def scalePredict(predict):
-        predict['cwa']          = predict["cwa"]/100
+        if 'gpa' in predict.keys(): predict['gpa']   = predict["gpa"]/5
+        if 'cwa' in predict.keys(): predict['cwa']   = predict["cwa"]/100
         predict['credit']       = predict["credit"]/10
         predict['difficulty']   = predict["difficulty"]/5
         if 'time' in predict.keys(): predict['time']   = predict["time"]/6
@@ -13,7 +12,8 @@ class CWAHandlers:
 
 
     def upScale(predict):
-        predict['cwa']          = predict["cwa"] * 100
+        if 'cwa' in predict.keys(): predict['cwa']   = predict["cwa"] * 100
+        if 'gpa' in predict.keys(): predict['gpa']   = predict["gpa"] * 5
         predict['credit']       = predict["credit"]*10
         predict['difficulty']   = predict["difficulty"]*5
         predict['time']         = predict["time"]*6
@@ -22,7 +22,7 @@ class CWAHandlers:
         return predict
 
     def buildResponse(data):
-        pred_dict = CWAHandlers.upScale(data)
+        pred_dict = Handlers.upScale(data)
         response = {
             'message': 'success',
             'data': {
