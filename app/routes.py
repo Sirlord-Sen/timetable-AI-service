@@ -1,6 +1,6 @@
 def timetable_routes(api, app, root="api"):
-    from app.timetable import timetable_routes as attach_timetable
+    from app.timetable import timetable_routes as timetable
   
 
     # Add routes
-    attach_timetable(api, app)
+    timetable(api, app)
