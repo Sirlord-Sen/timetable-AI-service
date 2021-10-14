@@ -8,10 +8,10 @@ from ..services import GPAService
 from ..dto import GPAScoreDto, GPATimeDto
 from ..handlers import Handlers
 
-score = GPAScoreDto.scoreDets
+score = GPAScoreDto.pointsDets
 time = GPATimeDto.timeDets
 
-@api.route('gpa/score')
+@api.route('gpa/points')
 class PredictScore(Resource):
     @api.doc('predict_the_score_of_student')
     @api.expect(score, validate=True)

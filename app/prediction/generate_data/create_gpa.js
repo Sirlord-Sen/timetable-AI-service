@@ -149,7 +149,7 @@ function GenerateGpaPoints(gpaLimit, total, rate){
     saveArrayToCSV(dataGpa)
 }
 
-GenerateGpaPoints(gpaLimit, 450, rate)
+GenerateGpaPoints(gpaLimit, 1000, rate)
 
 function GenerateCorrectGpaPoints(gpaPoints, credits, totalCredits, gpa){
     swa = (credits.reduce((r, a, i ) => {return r + a*gpaPoints[i]}, 0))/ totalCredits

@@ -6,7 +6,7 @@ class GPAService:
     @staticmethod
     def predictScore(predict):
         current_dir = path.join(getcwd())
-        filename = "app\prediction\gpa_prediction\score_prediction\score_prediction.h5"
+        filename = "app\prediction\gpa_prediction\score_prediction\points_prediction.h5"
         file = path.join(current_dir, filename)
 
         model = load_model(file)
@@ -18,7 +18,7 @@ class GPAService:
             predict["difficulty"]            
             ]).reshape(-1,4)
 
-        predict["score"] = float(model.predict(data_prepared, verbose=1).reshape(-1, 1)[0][0])
+        predict["points"] = float(model.predict(data_prepared, verbose=1).reshape(-1, 1)[0][0])
 
         return predict 
 
@@ -35,7 +35,7 @@ class GPAService:
             predict["gpa"], 
             predict["credit"],
             predict["difficulty"],
-            predict["score"],           
+            predict["points"],           
             ]).reshape(-1,4)
 
         predict["time"] = float(model.predict(data_prepared, verbose=1).reshape(-1, 1)[0][0])

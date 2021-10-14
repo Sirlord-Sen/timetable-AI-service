@@ -2,7 +2,7 @@ from flask_restx.fields import Float
 from ..controllers.cwa_controllers import api
 
 class GPAScoreDto:
-    scoreDets = api.model('gpa_prediction', {
+    pointsDets = api.model('gpa_prediction', {
         'gpa': Float(required=True),
         "credit": Float(required=True),
         "difficulty": Float(required=True),
@@ -14,5 +14,5 @@ class GPATimeDto:
         'gpa': Float(required=True),
         "credit": Float(required=True),
         "difficulty": Float(required=True),
-        "score": Float(required=True)
+        "points": Float(required=True)
     })
