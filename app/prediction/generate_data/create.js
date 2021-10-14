@@ -114,14 +114,11 @@ function GenerateScore(cwaLimit, total, rate){
     let a = 0
     let tot = 0
     let count = []
-    let tempScoreGpa = []
     let tempScoreCwa = []
     let tempCwa = []
-    let tempGpa = []
     let tempDiff = []
     let temphrs = [] 
     let dataCwa = []
-    let dataGpa = []
     
 
     for (let rat of rate){
@@ -133,34 +130,26 @@ function GenerateScore(cwaLimit, total, rate){
         noCourse = GenerateBoundNumbers(6, 12)
         for(let i = 0; i < noCourse; i ++){
             scoreCwa = GenerateBoundNumbers(cwaLimit[r][0], cwaLimit[r][1])
-            // scoreGpa = GenerateBoundNumbers(gpaLimit[r][0], gpaLimit[r][1], false, 0.5)
             diff = GenerateBoundNumbers(1,5)
             hour = GenerateStudyHour(cwaArray[o], scoreCwa, [[1,5], diff], avgStudy[r], studyLimit[r], 15)
 
             tempDiff.push(diff)
             temphrs.push(hour)
             tempScoreCwa.push(scoreCwa)
-            // tempScoreGpa.push(scoreGpa)
             tempCwa.push(cwaArray[o])
-            // tempGpa.push(gpaArray[o])
             
             if(i === (noCourse - 1)){
                 var totalCredits = GenerateBoundNumbers(16, 24) 
                 var credits = GenerateCredits(noCourse, [1, 4], totalCredits)
-
-                // tempScoreGpa = GenerateCorrectGpaScores(tempScoreGpa, credits, totalCredits, gpaArray[o])
                 tempScoreCwa = GenerateCorrectCwaScores(tempScoreCwa, credits, totalCredits, cwaArray[o]) 
                 
 
                 for(let i in tempCwa){
                     tempCwaData = [tempCwa[i], credits[i], temphrs[i], tempDiff[i], tempScoreCwa[i]]
-                    // tempGpaData = [tempGpa[i], credits[i], temphrs[i], tempDiff[i], tempScoreGpa[i]]
                     dataCwa.push(tempCwaData)
-                    // dataGpa.push(tempGpaData)
                 }
 
                 tempScoreCwa = []
-                // tempScoreGpa = []
                 tempCwa = []
                 tempDiff = []
                 temphrs = []
@@ -177,7 +166,6 @@ function GenerateScore(cwaLimit, total, rate){
         if (a === count[8])  r = r + 1
         if (a === count[9])  r = r + 1
     }
-    
     saveArrayToCSV(dataCwa)
 }
 
@@ -215,13 +203,6 @@ function GenerateCorrectCwaScores(scores, credits, totalCredits, cwa){
     return scores
 }
 
-function GenerateCorrectGpaScores(scores, credits, totalCredits, gpa){
-    swa = (credits.reduce((r, a, i ) => {return r + a*scores[i]}, 0))/ totalCredits
-    swa = Math.round(swa * 100)/100
-    var diff = Math.round((gpa - swa) * totalCredits)
-    // console.log(diff)
-    return scores
-}
 
 function GenerateCredits(n, range , sum){
     var aryRet = [];
@@ -251,15 +232,9 @@ function GenerateCredits(n, range , sum){
 
 
 function saveArrayToCSV(dataCwa){
-    // let sys = "Cwa"
-    // let data = dataCwa
-    // let sysPoint = "Score"
-    // for (let i=0; i<2; i++){
-        // if (i===1) {sys = "Gpa" , sysPoint = 'Grade', data = dataGpa}
-        const csvWriter = createCsvWriter({
-            header: [`cwa`, "credit", "time", "difficulty", `score`],
-            path: `data_cwa.csv`
-        })
-        csvWriter.writeRecords(dataCwa).then(() => console.log("....Done")) 
-    // }
+    const csvWriter = createCsvWriter({
+        header: [`cwa`, "credit", "time", "difficulty", `score`],
+        path: `data_cwa.csv`
+    })
+    csvWriter.writeRecords(dataCwa).then(() => console.log("....Done")) 
 }
